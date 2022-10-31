@@ -1,0 +1,77 @@
+
+<style>
+    .box{
+        padding-left: 20%;
+        padding-top: 3%;
+    }
+    .box h1{
+        padding-left: 14%;
+    }
+    #chat{
+        border: 5px solid blue;
+    }
+    #chat-message-input{
+        border:2px soild black;
+    }
+    #chat-message-submit{
+        padding-left: 54px;
+        margin-left: 30%;
+        padding-top: -2%;
+       
+        padding-right: 6%;
+        text-align: center;
+    }
+    
+
+</style>
+<div class = 'box'>
+<h1>welcome!this chat room</h1>
+
+<body>
+    
+    <textarea id="chat" cols="100" rows="15"></textarea><br>
+    <input id="chat-message-input" type="text" size="100" rows='25'><br>
+    <input id="chat-message-submit" type="button" value="Send">
+    {{ roomname|json_script:"room_name" }}
+
+<script>
+    const room_Name = JSON.parse(document.getElementById('room_name').textContent)
+    console.log(room_Name)
+    const chatsocket =  new WebSocket(
+        'ws://'
+        +window.location.host
+        +'/ws/asgi/'
+        +room_Name
+        +'/'
+    );
+        chatsocket.onmessage = function(e) {
+            
+            const data = JSON.parse(e.data);
+            document.querySelector('#chat').value += (data.message + '\n');
+            console.connected('connected');
+        };
+
+        chatsocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        document.querySelector('#chat-message-input').focus();
+        document.querySelector('#chat-message-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            const messageInput = document.querySelector('#chat-message-input');
+            const message = document.getElementById('chat-message-input').value
+            console.log(message)
+            chatsocket.send(JSON.stringify({
+                'message': message
+                
+            }));
+            messageInput.value = '';
+        };
+    </script>
+</body>
+</html>
