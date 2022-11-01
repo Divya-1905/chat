@@ -5,7 +5,7 @@ from django.urls import path
 urlpatterns = [
     path('room/',chat,name='room'),
     path('<str:room_name>/',chat_room,name='chatroom-view'),
-    path('accounts/signup/',signupview, name='signup'),
+    path('',signupview, name='signup'),
     path('accounts/login/',loginview,name='login'),
     path('accounts/message',message,name='message')  
 ]
