@@ -1,41 +1,33 @@
-
 <style>
     .box{
-        padding-left: 20%;
-        padding-top: 3%;
-    }
-    .box h1{
-        padding-left: 14%;
-    }
-    #chat{
-        border: 5px solid blue;
-    }
-    #chat-message-input{
-        border:2px soild black;
+        padding: 2%;
+        width: 58%;
+        text-align: center;
+        border: 6px solid blue;
+        margin-top: 6%;
+        margin-left: 12%;
     }
     #chat-message-submit{
-        padding-left: 54px;
-        margin-left: 30%;
-        padding-top: -2%;
-       
-        padding-right: 6%;
-        text-align: center;
+        width:25%;
+        height:4%;
     }
-    
-
+    #chat-message-input{
+        width:95%;
+    }
 </style>
-<div class = 'box'>
-<h1>welcome!this chat room</h1>
 
 <body>
-    
+    <div class = 'box'>
+        <h1>welcome!this chat room</h1>
     <textarea id="chat" cols="100" rows="15"></textarea><br>
-    <input id="chat-message-input" type="text" size="100" rows='25'><br>
+    <input id="chat-message-input"  cols ='20'type="text" size="100" rows='25'><br>
     <input id="chat-message-submit" type="button" value="Send">
     {{ roomname|json_script:"room_name" }}
+    
 
 <script>
     const room_Name = JSON.parse(document.getElementById('room_name').textContent)
+    
     console.log(room_Name)
     const chatsocket =  new WebSocket(
         'ws://'
@@ -47,7 +39,8 @@
         chatsocket.onmessage = function(e) {
             
             const data = JSON.parse(e.data);
-            document.querySelector('#chat').value += (data.message + '\n');
+            console.log(data)
+            document.querySelector('#chat').value += (data.username + " : " + data.message+ '\n');
             console.connected('connected');
         };
 
@@ -67,7 +60,8 @@
             const message = document.getElementById('chat-message-input').value
             console.log(message)
             chatsocket.send(JSON.stringify({
-                'message': message
+                'message': message,
+                'user':"{{request.user.username}}"
                 
             }));
             messageInput.value = '';
@@ -75,3 +69,4 @@
     </script>
 </body>
 </html>
+</div>

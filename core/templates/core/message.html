@@ -1,5 +1,13 @@
+<style>
+    .box{
+        padding:3%;
+    }
+</style>
+
+<div class = 'box'>
+<h1>message</h1>
 <from method='POST'>
     {%csrf_token%}
     {{form.as_p}}
-  
-</form>
+    <button>submit</button>
+</form></div>

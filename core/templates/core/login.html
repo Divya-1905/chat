@@ -1,7 +1,21 @@
+<style>
+    .box{
+        padding: 4%;
+        border: 2px solid blue;
+        width: 23%;
+        margin-top: 9%;
+        margin-left: 26%;
+    }
+    .box h1{
+        margin-left:37%;
+    }
+</style>
+
+<div class = 'box'>
 <h1>login</h1>
 <form method = 'POST'>
     {%csrf_token%}
     {{form.as_p}}
-    <button>sumbit<button>
+    <button>submit<button>
      <a href ="{%url 'signup'%}">login</a>   
-</form>
+</form></div>

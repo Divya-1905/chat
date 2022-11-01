@@ -5,16 +5,22 @@ from django.contrib.auth.models import User
 
 from core.models import messagemodel
 class signup(ModelForm):
-   class Meta:
+    class Meta:
        model=User
        fields = ['username','password','email']
-class login(ModelForm):
+    def save(self, commit=True):                                       
+            user = super().save(commit=False)
+            user.set_password(self.cleaned_data["password"])
+            print(user)
+            user.save()
+            return user
+class loginform(ModelForm):
     class Meta:
         model = User
         fields = ['username','password']  
-class message(ModelForm):
+class messageform(ModelForm):
     class Meta:
-        model: messagemodel
+        model = messagemodel
         fields = '__all__'        
              
        
