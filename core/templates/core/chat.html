@@ -23,19 +23,17 @@
     <input id="chat-message-input"  cols ='20'type="text" size="100" rows='25'><br>
     <input id="chat-message-submit" type="button" value="Send">
     {{ roomname|json_script:"room_name" }}
+    {{user|json_script:"user_name"}}
     
 
 <script>
+    const user =JSON.parse(document.getElementById('user_name').textContent)
     const room_Name = JSON.parse(document.getElementById('room_name').textContent)
     
     console.log(room_Name)
-    const chatsocket =  new WebSocket(
-        'ws://'
-        +window.location.host
-        +'/ws/'
-        +room_Name
-        +'/'
-    );
+    
+    const chatsocket =  new WebSocket('ws://'+window.location.host+'/ws/'+room_Name+'/');
+         {% comment %} chatsocket.secrchparams.append('user',user_name) {% endcomment %}
         chatsocket.onmessage = function(e) {
             
             const data = JSON.parse(e.data);

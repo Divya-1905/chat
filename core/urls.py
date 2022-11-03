@@ -7,5 +7,5 @@ urlpatterns = [
     path('<str:room_name>/',chat_room,name='chatroom-view'),
     path('',signupview, name='signup'),
     path('accounts/login/',loginview,name='login'),
-    path('accounts/message',message,name='message')  
+    # path('accounts/message',message,name='message')  
 ]
