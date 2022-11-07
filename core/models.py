@@ -10,3 +10,4 @@ class chatroom(models.Model):
     roomname = models.CharField(max_length=100)  
 class room(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)   
+    room = models.CharField(max_length = 100,null = True)

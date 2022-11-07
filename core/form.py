@@ -1,7 +1,7 @@
 from dataclasses import fields
 from pyexpat import model
 from django.forms import ModelForm
-from .models import chatroom
+from .models import room
 from django.contrib.auth.models import User
 
 from core.models import messagemodel
@@ -23,8 +23,10 @@ class messageform(ModelForm):
     class Meta:
         model = messagemodel
         fields = '__all__'        
-class roomform(ModelForm):
+class createform(ModelForm):
     class Meta:
-        model = chatroom
-        fields = '__all__'
+        model = room
+        fields = ['room']
+       
+        
                             

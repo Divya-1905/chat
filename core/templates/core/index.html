@@ -10,16 +10,31 @@
             margin-top: 11%;
             margin-left: 5%;
         }
+        .box{
+                padding: 3%;
+                width: 30%;
+                height: 16%;
+                border: 2px solid blue;
+                padding-top: 4%;
+                margin-top: 11%;
+                margin-left: 5%;
+        }
     </style>
     <head>
-      <div class = 'box'>
         <title>Chat Rooms</title>
     </head>
     <body>
+        <div class = 'box2'>
+        <form method ='POST'>
+           {%csrf_token%}
+           {{form.as_p}}
+           <button> submit</button>
+        </form></div>
+
+        <div class = 'box'>
         What chat room would you like to enter?<br>
         <input id="room-name-input" type="text" size="50"><br>
-        <input id="room-name-submit" type="button" value="Enter">
-      
+        <input id="room-name-submit" type="button" value="Enter"></div>
         <script>
             
             document.querySelector('#room-name-input').focus();
@@ -36,8 +51,10 @@
                 window.location.pathname = '/' + roomName + '/' ;
             };
         </script>
+
     </body>
-    </html></div>
+ 
+    </html>
 
 
 
